@@ -1,7 +1,6 @@
 version: "3.7"
 
 services:
-  # jupyterlab with pyspark
   pyspark:
     tty: true
     build:
@@ -10,17 +9,6 @@ services:
     environment:
       JUPYTER_ENABLE_LAB: "yes"
     command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"
-    depends_on:
-      - localstack.deltalake.local
     ports:
       - "9999:8888"
-      - "4040:4040"
-    volumes:
-      - ./data:/home/jovyan/work
-  localstack.deltalake.local:
-      extends:
-        file: ./localstack/docker-compose.yaml
-        service: localstack
-      ports:
-        - 4577:4566
-# docker run --rm -p 10000:8888 -e JUPYTER_ENABLE_LAB=yes -v "$PWD":/home/jovyan/work jupyter/pyspark-notebook
+ 
